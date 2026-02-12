@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Teman Rahasia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1a1a1a;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Smoke particles background */
+        .smoke-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .smoke {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0;
+            animation: smokeFloat 20s infinite ease-in-out;
+        }
+
+        .smoke:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+
+        .smoke:nth-child(2) {
+            left: 40%;
+            animation-delay: 5s;
+            animation-duration: 30s;
+        }
+
+        .smoke:nth-child(3) {
+            left: 70%;
+            animation-delay: 10s;
+            animation-duration: 28s;
+        }
+
+        .smoke:nth-child(4) {
+            left: 25%;
+            animation-delay: 15s;
+            animation-duration: 32s;
+        }
+
+        .smoke:nth-child(5) {
+            left: 60%;
+            animation-delay: 8s;
+            animation-duration: 27s;
+        }
+
+        @keyframes smokeFloat {
+            0% {
+                bottom: -300px;
+                opacity: 0;
+                transform: translateX(0) scale(1);
+            }
+            10% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 0.4;
+                transform: translateX(50px) scale(1.3);
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+                transform: translateX(-30px) scale(0.8);
+            }
+        }
+
+        /* Subtle gradient overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(45, 45, 45, 0.3) 0%, rgba(26, 26, 26, 1) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 60px 80px;
+            max-width: 900px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+            border: 1px solid #d4af37;
+            border-radius: 2px;
+            background: rgba(26, 26, 26, 0.7);
+            box-shadow: 
+                0 0 60px rgba(212, 175, 55, 0.1),
+                inset 0 0 80px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Ornamental corners */
+        .container::before,
+        .container::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #d4af37;
+        }
+
+        .container::before {
+            top: -1px;
+            left: -1px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .container::after {
+            top: -1px;
+            right: -1px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        /* Bottom corners using pseudo elements on inner div */
+        .corner-bottom-left,
+        .corner-bottom-right {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #d4af37;
+        }
+
+        .corner-bottom-left {
+            bottom: -1px;
+            left: -1px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-bottom-right {
+            bottom: -1px;
+            right: -1px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Inner decorative lines */
+        .container::after {
+            opacity: 0.3;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            color: #d4af37;
+            font-size: 1.2em;
+            margin-bottom: 60px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeInTitle 2s ease forwards;
+        }
+
+        @keyframes fadeInTitle {
+            to {
+                opacity: 0.9;
+            }
+        }
+
+        .affirmation-container {
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .affirmation-container:hover {
+            cursor: pointer;
+        }
+
+        .affirmation {
+            font-family: 'Crimson Text', serif;
+            font-size: 2.2em;
+            color: #e8e8e8;
+            line-height: 1.7;
+            position: absolute;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            max-width: 90%;
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .affirmation.active {
+            visibility: visible;
+        }
+
+        .affirmation .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateX(0);
+        }
+
+        .affirmation.active .char {
+            animation: charFadeIn 0.5s ease forwards;
+        }
+
+        .affirmation.fade-out .char {
+            animation: charFlyOut 0.6s ease forwards;
+        }
+
+        @keyframes charFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes charFlyOut {
+            from {
+                opacity: 1;
+                transform: translateX(0) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px) translateY(-20px);
+            }
+        }
+
+        /* Preserve spaces */
+        .affirmation .space {
+            display: inline-block;
+            width: 0.3em;
+        }
+
+        /* Hover hint */
+        .hover-hint {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.85em;
+            color: #666;
+            font-style: italic;
+            opacity: 0;
+            animation: fadeInHint 2s ease forwards 3s;
+            pointer-events: none;
+        }
+
+        @keyframes fadeInHint {
+            to {
+                opacity: 0.5;
+            }
+        }
+
+        .hover-hint.hide {
+            animation: fadeOutHint 0.5s ease forwards;
+        }
+
+        @keyframes fadeOutHint {
+            to {
+                opacity: 0;
+            }
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: #d4af37;
+            margin: 50px auto 30px;
+            opacity: 0;
+            animation: fadeInDivider 2s ease forwards 1s;
+        }
+
+        @keyframes fadeInDivider {
+            to {
+                opacity: 0.6;
+            }
+        }
+
+        .footer {
+            font-family: 'Cormorant Garamond', serif;
+            margin-top: 0;
+            color: #888;
+            font-size: 1em;
+            font-style: italic;
+            font-weight: 300;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeInFooter 2s ease forwards 1.5s;
+        }
+
+        @keyframes fadeInFooter {
+            to {
+                opacity: 0.7;
+            }
+        }
+
+        /* Minimal dots indicator */
+        .indicator {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 50px;
+            opacity: 0;
+            animation: fadeInIndicator 2s ease forwards 2s;
+        }
+
+        @keyframes fadeInIndicator {
+            to {
+                opacity: 0.4;
+            }
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #555;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #d4af37;
+            transform: scale(1.3);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 1em;
+                letter-spacing: 3px;
+                margin-bottom: 40px;
+            }
+            
+            .affirmation {
+                font-size: 1.6em;
+            }
+
+            .affirmation-container {
+                min-height: 240px;
+                padding: 30px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .affirmation {
+                font-size: 1.4em;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Smoke particles background -->
+    <div class="smoke-container">
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+    </div>
+
+    <div class="container">
+        <!-- Corner ornaments -->
+        <div class="corner-bottom-left"></div>
+        <div class="corner-bottom-right"></div>
+        
+        <h1>Untuk Teman Rahasia</h1>
+        
+        <div class="affirmation-container" id="affirmationContainer">
+            <div class="affirmation">Semoga harimu baik hari ini.</div>
+            <div class="affirmation">Semoga kamu selalu diberi kesehatan.</div>
+            <div class="affirmation">Semoga semua yang kamu usahakan berhasil.</div>
+            <div class="affirmation">Semoga kamu selalu bahagia, bahkan tanpa tahu aku ada.</div>
+            <div class="affirmation">Semoga hari ini tidak terlalu berat buat kamu.</div>
+            <div class="affirmation">Kalau kamu capek, semoga kamu punya tempat untuk istirahat.</div>
+            <div class="affirmation">Semoga kamu selalu merasa cukup dan dicintai.</div>
+            <div class="hover-hint" id="hoverHint">usap untuk membaca lainnya</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="footer">
+            Dikirim dengan penuh harapan dan doa
+        </div>
+
+        <div class="indicator">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script>
+        const affirmationTexts = [
+            'Semoga harimu baik hari ini.',
+            'Semoga kamu selalu diberi kesehatan.',
+            'Semoga semua yang kamu usahakan berhasil.',
+            'Semoga kamu selalu bahagia, bahkan tanpa tahu aku ada.',
+            'Semoga hari ini tidak terlalu berat buat kamu.',
+            'Kalau kamu capek, semoga kamu punya tempat untuk istirahat.',
+            'Semoga kamu selalu merasa cukup dan dicintai.'
+        ];
+
+        const container = document.getElementById('affirmationContainer');
+        const affirmations = document.querySelectorAll('.affirmation');
+        const dots = document.querySelectorAll('.dot');
+        const hoverHint = document.getElementById('hoverHint');
+        
+        let currentIndex = 0;
+        let isTransitioning = false;
+        let autoPlayTimer = null;
+        let hasInteracted = false;
+
+        // Convert text to character spans
+        function textToChars(text) {
+            return text.split('').map(char => {
+                if (char === ' ') {
+                    return '<span class="char space"> </span>';
+                }
+                return `<span class="char">${char}</span>`;
+            }).join('');
+        }
+
+        // Initialize affirmations with character spans
+        affirmations.forEach((aff, index) => {
+            aff.innerHTML = textToChars(affirmationTexts[index]);
+        });
+
+        // Show first affirmation
+        function showInitialAffirmation() {
+            affirmations[0].classList.add('active');
+            dots[0].classList.add('active');
+            
+            const chars = affirmations[0].querySelectorAll('.char');
+            chars.forEach((char, index) => {
+                char.style.animationDelay = `${index * 0.03}s`;
+            });
+        }
+
+        showInitialAffirmation();
+
+        function showAffirmation(index) {
+            if (isTransitioning) return;
+            
+            isTransitioning = true;
+            
+            // Hide hint after first interaction
+            if (!hasInteracted) {
+                hasInteracted = true;
+                hoverHint.classList.add('hide');
+            }
+
+            const currentAff = affirmations[currentIndex];
+            const currentChars = currentAff.querySelectorAll('.char');
+            
+            // Animate out current affirmation characters
+            currentAff.classList.add('fade-out');
+            currentChars.forEach((char, i) => {
+                char.style.animationDelay = `${i * 0.02}s`;
+            });
+            
+            dots[currentIndex].classList.remove('active');
+
+            // Wait for fade out animation
+            setTimeout(() => {
+                currentAff.classList.remove('active', 'fade-out');
+                
+                // Reset character animations
+                currentChars.forEach(char => {
+                    char.style.animation = 'none';
+                    void char.offsetHeight; // Trigger reflow
+                    char.style.animation = '';
+                });
+                
+                // Update index
+                currentIndex = index;
+                const newAff = affirmations[currentIndex];
+                const newChars = newAff.querySelectorAll('.char');
+                
+                // Show new affirmation
+                newAff.classList.add('active');
+                dots[currentIndex].classList.add('active');
+                
+                // Animate in new characters
+                newChars.forEach((char, i) => {
+                    char.style.animationDelay = `${i * 0.03}s`;
+                });
+                
+                // Allow next transition after all animations complete
+                const longestDelay = (newChars.length * 0.03 + 0.5) * 1000;
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, longestDelay);
+                
+            }, currentChars.length * 0.02 * 1000 + 600);
+        }
+
+        function nextAffirmation() {
+            const nextIndex = (currentIndex + 1) % affirmations.length;
+            showAffirmation(nextIndex);
+        }
+
+        function startAutoPlay() {
+            stopAutoPlay();
+            autoPlayTimer = setInterval(nextAffirmation, 6000);
+        }
+
+        function stopAutoPlay() {
+            if (autoPlayTimer) {
+                clearInterval(autoPlayTimer);
+                autoPlayTimer = null;
+            }
+        }
+
+        // Hover/Click interaction
+        container.addEventListener('mouseenter', () => {
+            stopAutoPlay();
+        });
+
+        container.addEventListener('mouseleave', () => {
+            startAutoPlay();
+        });
+
+        container.addEventListener('click', () => {
+            if (!isTransitioning) {
+                nextAffirmation();
+                stopAutoPlay();
+                setTimeout(() => {
+                    if (!autoPlayTimer) {
+                        startAutoPlay();
+                    }
+                }, 4000);
+            }
+        });
+
+        // Touch support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        container.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            stopAutoPlay();
+        }, { passive: true });
+
+        container.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+            setTimeout(() => {
+                if (!autoPlayTimer) {
+                    startAutoPlay();
+                }
+            }, 4000);
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold && !isTransitioning) {
+                nextAffirmation();
+            }
+        }
+
+        // Start autoplay
+        setTimeout(() => {
+            startAutoPlay();
+        }, 2000); // Start autoplay after 2 seconds
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                if (!isTransitioning) {
+                    nextAffirmation();
+                    stopAutoPlay();
+                    setTimeout(() => {
+                        if (!autoPlayTimer) {
+                            startAutoPlay();
+                        }
+                    }, 4000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
